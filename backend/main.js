@@ -1,6 +1,7 @@
 const express = require("express");
-
+const cors = require("cors");
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 const PORT = 5000;
@@ -28,15 +29,64 @@ app.get("/api/careers", (req, res) => {
     ]);
 });
 app.post("/api/chat", (req, res) => {
-    const message = req.body.message;
+    const answers = req.body.answers;
 
-    const reply =
-        "I can help you create a roadmap for " +
-        message +
-        ". We will identify the required skills, learning steps, projects, and career goals.";
+    const roadmap = {
+        career: answers.dreamJob,
+        stages: [
+            {
+                id: "stage1",
+                title: "Foundation",
+                skills: [
+                    "Understand the basics",
+                    "Build programming fundamentals"
+                ]
+            },
+            {
+                id: "stage2",
+                title: "Core Skills",
+                skills: [
+                    "Learn job-specific technologies",
+                    "Practice problem solving"
+                ]
+            },
+            {
+                id: "stage3",
+                title: "Projects",
+                skills: [
+                    "Build beginner projects",
+                    "Build real-world projects"
+                ]
+            },
+            {
+                id: "stage4",
+                title: "Portfolio",
+                skills: [
+                    "Create GitHub portfolio",
+                    "Document your projects"
+                ]
+            },
+            {
+                id: "stage5",
+                title: "Experience",
+                skills: [
+                    "Apply for internships",
+                    "Work on practical projects"
+                ]
+            },
+            {
+                id: "stage6",
+                title: "Career",
+                skills: [
+                    "Prepare for interviews",
+                    "Apply for jobs"
+                ]
+            }
+        ]
+    };
 
-    res.json({ reply: reply });
+    res.json(roadmap);
 });
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
